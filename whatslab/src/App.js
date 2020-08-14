@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import daniel from './componentes/daniel.jpg'
+import leo from './componentes/leo.jpeg'
 
 const Principal = styled.div`
 display: flex;
@@ -25,9 +27,10 @@ display: flex;
     margin-bottom: 10px;
     height: 80vh;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     border: 1px solid gray;
+    gap: 30px;
 `
 const SectionMsg = styled.div`
 width: 400px;
@@ -43,68 +46,72 @@ const InputMsg = styled.input`
 width: 250px;
 
 `
+
+const ImagemUser = styled.img`
+  width:50px;
+  height:50px;
+  border: 1px solid gray;
+`
+
 class App extends React.Component {
 
   state = {
     
-    valorInputUsuario: "",
-    valorInputFoto: "",
-    valorInputFotoPost: "",
-
+    valorMensagem: "",
+    mensagens: []
   }
 
-  adicionaPost = () => {
+  adicionaMensagem = () => {
     
-    const novoPost = {
+    const novaMensagem = {
      
-      nomeUsuario: this.state.valorInputUsuario,
+      novaMensagem: this.state.valorMensagem
       
-      foto: this.state.valorInputFoto,
-      fotoPost: this.state.inputFotoPost
     };
 
     
-    const novoPosts = [...this.state.posts, novoPost];
+    const listaMensagem = [...this.state.mensagens, novaMensagem];
 
     
-    this.setState({ posts: novoPosts });
-    this.setState({ valorInputPessoa: "" });
-    console.log(novoPosts)
-  };
-
-  onChangeInputUsuario = (event) => {
+    this.setState({ mensagens: listaMensagem });
+    this.setState({ valorMensagem: "" });
     
-    this.setState({ valorInputUsuario: event.target.value });
   };
 
-  onChangeInputFoto = (event) => {
-   
-    this.setState({ valorInputFoto: event.target.value });
-  };
-  onChangeInputFotoPost = (event) => {
-  
-    this.setState({ inputFotoPost: event.target.value });
+  onChangeInputMsg = (event) => {
+    
+    this.setState({ valorMensagem:event.target.value });
   };
 
-  
+ 
 
   render() {
 
-    
-    
+    console.log(this.state.mensagens)
+
+    const listas = this.state.mensagens.map(() => {
+      return (
+      <p>{}</p>
+      )
+    }
+    )
     
 
     return (
       <Principal>
       <SectionUser>
-
+        <ImagemUser src={daniel}/>
+        <ImagemUser src={leo}/>
       </SectionUser>
       <SectionMsg>
+        {listas}
+        
         <EnviarMsg>
-        <InputMsg/>
-        <Botao>Enviar</Botao>
+        <InputMsg onChange={this.onChangeInputMsg} value={this.state.valorMensagem}/>
+        <Botao onClick={this.adicionaMensagem}>Enviar</Botao>
         </EnviarMsg>
         
+
       </SectionMsg>
       
     </Principal>
